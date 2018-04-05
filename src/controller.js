@@ -6,7 +6,7 @@ export default class Controller {
   }
 
   init () {
-    const date = this.model.getDate()
-    this.view.setMonthLabel(date)
+    const monthLabel = this.model.getMonthLabel()
+    this.view.setMonthLabel(monthLabel)
   }
 }
