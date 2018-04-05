@@ -23,4 +23,20 @@ export default class Model {
 
     return monthLabel
   }
+
+  /**
+   * get prev or next month
+   * @param {object} date
+   * @param {string} type: 'preve' or 'next'
+   */
+  getPrevOrNextMonthDate (date, type) {
+    const d = new Date(date)
+    const month = type === 'prev'
+      ? date.getMonth() - 1
+      : date.getMonth() + 1
+
+    d.setMonth(month)
+    console.log(d)
+    return d
+  }
 }

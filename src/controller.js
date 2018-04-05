@@ -8,5 +8,9 @@ export default class Controller {
   init () {
     const monthLabel = this.model.getMonthLabel()
     this.view.setMonthLabel(monthLabel)
+
+    const date = this.model.getDate()
+    this.model.getPrevOrNextMonthDate(date, 'prev')
+    this.model.getPrevOrNextMonthDate(date, 'next')
   }
 }
