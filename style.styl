@@ -1,0 +1,49 @@
+body
+  margin 0 auto
+  font-family Georgia, Helvetica
+  background-color #eee
+  text-align center
+
+.calendar
+  margin-top 8em
+  padding 16px
+  display inline-block
+  background-color #fff
+  border-radius 4px
+  box-shadow 0 1px 3px rgba(0,0,0,0.1)
+  font-size 16px
+  color #333
+
+.date-btn
+  border 0
+  font-size 14px
+  background transparent
+  outline none
+  cursor pointer
+.prev-btn
+  float left
+.next-btn
+  float right
+
+.day
+  width 28px
+  height 26px
+  text-align center
+.day-today,
+.day-selected
+  font-weight 600
+.day-selected
+  color #fff
+  background-color #333
+.day-disabled
+  color #c0c4cc
+
+.date-table
+  margin-top 8px
+.date-head
+  font-size 14px
+.date-body
+  .day
+    cursor pointer
+  .day-disabled
+    cursor auto
