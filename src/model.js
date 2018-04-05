@@ -4,4 +4,8 @@ export default class Model {
     this.todaysDate = new Date()
     console.log('this is Model')
   }
+
+  getDate () {
+    return this.date
+  }
 }
