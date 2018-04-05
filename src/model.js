@@ -44,7 +44,6 @@ export default class Model {
       : date.getMonth() + 1
 
     d.setMonth(month)
-    console.log(d)
     return d
   }
 }

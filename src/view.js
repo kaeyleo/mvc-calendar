@@ -14,4 +14,16 @@ export default class View {
   setMonthLabel (value) {
     this.$monthLabel.innerText = value
   }
+
+  bindToPrevMonth (handler) {
+    this.$prevBtn.addEventListener('click', () => {
+      handler()
+    })
+  }
+
+  bindToNextMonth (handler) {
+    this.$nextBtn.addEventListener('click', () => {
+      handler()
+    })
+  }
 }
