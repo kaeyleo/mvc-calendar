@@ -10,6 +10,7 @@ export default class Controller {
 
   init () {
     this.updateMonthLabel()
+    this.showMonthDays()
   }
 
   updateMonthLabel () {
@@ -17,11 +18,17 @@ export default class Controller {
     this.view.setMonthLabel(monthLabel)
   }
 
+  showMonthDays () {
+    const data = this.model.getMonthDaysData()
+    this.view.showMonthDays(data)
+  }
+
   toPrevMonth () {
     const date = this.model.getDate()
     const prevMonthDate = this.model.getPrevOrNextMonthDate(date, 'prev')
     this.model.setDate(prevMonthDate)
     this.updateMonthLabel()
+    this.showMonthDays()
   }
 
   toNextMonth () {
@@ -29,5 +36,6 @@ export default class Controller {
     const nextMonthDate = this.model.getPrevOrNextMonthDate(date, 'next')
     this.model.setDate(nextMonthDate)
     this.updateMonthLabel()
+    this.showMonthDays()
   }
 }
