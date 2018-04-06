@@ -61,6 +61,22 @@ export default class Model {
     return d.getDate()
   }
 
+  // storage days selected, events...
+  getDaysOptions () {
+    const list = {
+      '2018 2 5': {
+        isSelecte: true
+      },
+      '2018 4 10': {
+        isSelecte: true
+      },
+      '2018 4 27': {
+        isSelecte: true
+      }
+    }
+    return list
+  }
+
   /**
    * {
    *   date: '2018 4 6' #日期
@@ -117,11 +133,21 @@ export default class Model {
           weeks.push(day)
           continue
         }
+
         monthDay++
         day.date = `${year} ${month} ${monthDay}`
         day.value = monthDay
-        if (monthDay === today) day.isToday = true
         day.isCurrentMonth = true
+
+        if (monthDay === today) day.isToday = true
+
+        const daysOptions = this.getDaysOptions()
+        for (let dayOpt in daysOptions) {
+          if (day.date !== dayOpt) continue
+          const item = daysOptions[dayOpt]
+          if (item.isSelecte) day.isSelecte = true
+        }
+
         weeks.push(day)
       }
       data.push(weeks)

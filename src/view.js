@@ -28,7 +28,7 @@ export default class View {
 
         if (!day.isCurrentMonth) classArr.push('day-disabled')
         if (day.isToday) classArr.push('day-today')
-        if (day.isToday) classArr.push('day-today')
+        if (day.isSelecte) classArr.push('day-selected')
 
         const extendClass = classArr.join(' ')
 
