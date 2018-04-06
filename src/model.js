@@ -46,4 +46,87 @@ export default class Model {
     d.setMonth(month)
     return d
   }
+
+  getFirstDay () {
+    const year = this.date.getFullYear()
+    const month = this.date.getMonth()
+    const firstDay = new Date(year, month, 1).getDay()
+    return firstDay
+  }
+
+  getPrevMonthDays () {
+    const year = this.date.getFullYear()
+    const month = this.date.getMonth()
+    const d = new Date(year, month, 0)
+    return d.getDate()
+  }
+
+  /**
+   * {
+   *   date: '2018 4 6' #日期
+   *   value: 6 #显示日期
+   *   isToday: true
+   *   isCurrentMonth: true
+   * }
+   */
+  getMonthDaysData () {
+    const year = this.date.getFullYear()
+    const month = this.date.getMonth() + 1
+    const today = this.date.getDate()
+
+    const prevMonthDays = this.getPrevMonthDays()
+    const days = new Date(year, month, 0).getDate() // 这个月天数
+    const firstDay = this.getFirstDay()
+    const lastDay = new Date(`${year}, ${month}, ${days}`).getDay() // 这个月最后一天星期几
+    const weekDays = 7
+    let weeksLen = (firstDay + days + 6 - lastDay) / weekDays
+    weeksLen = Math.round(weeksLen)
+
+    const data = []
+    let monthDay = 0
+    for (let i = 0; i < weeksLen; i++) {
+      const weeks = []
+      let nextMonthDay = 0
+      for (let j = 0; j < weekDays; j++) {
+        const day = {}
+        day.isCurrentMonth = false
+
+        if (i === 0 && j < firstDay) {
+          let y = year
+          let m = month - 1
+          const prevMonthDate = 1 + prevMonthDays - firstDay + j
+          if (month === 1) {
+            y--
+            m = 12
+          }
+          day.date = `${y} ${m} ${prevMonthDate}`
+          day.value = prevMonthDate
+          weeks.push(day)
+          continue
+        }
+        if (i === weeksLen - 1 && j > lastDay) {
+          nextMonthDay++
+          let y = year
+          let m = month + 1
+          if (month === 12) {
+            y++
+            m = 1
+          }
+          day.date = `${y} ${m} ${nextMonthDay}`
+          day.value = nextMonthDay
+          weeks.push(day)
+          continue
+        }
+        monthDay++
+        day.date = `${year} ${month} ${monthDay}`
+        day.value = monthDay
+        if (monthDay === today) day.isToday = true
+        day.isCurrentMonth = true
+        weeks.push(day)
+      }
+      data.push(weeks)
+    }
+    console.log(data)
+    return data
+  }
 }
