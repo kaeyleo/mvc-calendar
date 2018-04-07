@@ -2,7 +2,10 @@ export default class Model {
   constructor () {
     this.date = new Date()
     this.todaysDate = new Date()
+    this.daysOptions = {}
     console.log('this is Model')
+
+    this.initToday()
   }
 
   getDate () {
@@ -61,9 +64,24 @@ export default class Model {
     return d.getDate()
   }
 
-  // storage days selected, events...
-  getDaysOptions () {
-    const list = {}
+  toggleSelect (key) {
+    const list = this.daysOptions
+    for (let i in list) {
+      list[i].isSelecte = false
+    }
+
+    const isDefined = !!list[key]
+    if (!isDefined) {
+      list[key] = {}
+      list[key].isSelecte = true
+      return
+    }
+    const isSelect = list[key].isSelecte
+    list[key].isSelecte = !isSelect
+  }
+
+  initToday () {
+    const list = this.daysOptions
 
     const todaysYear = this.todaysDate.getFullYear()
     const todaysMonth = this.todaysDate.getMonth() + 1
@@ -72,8 +90,6 @@ export default class Model {
 
     if (!list[todaysDate]) list[todaysDate] = {}
     list[todaysDate].isSelecte = true
-
-    return list
   }
 
   /**
@@ -145,7 +161,7 @@ export default class Model {
         const todaysDate = `${todaysYear} ${todaysMonth} ${today}`
         if (day.date === todaysDate) day.isToday = true
 
-        const daysOptions = this.getDaysOptions()
+        const daysOptions = this.daysOptions
         for (let dayOpt in daysOptions) {
           if (day.date !== dayOpt) continue
           const item = daysOptions[dayOpt]

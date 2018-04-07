@@ -6,6 +6,7 @@ export default class Controller {
 
     view.bindToPrevMonth(this.toPrevMonth.bind(this))
     view.bindToNextMonth(this.toNextMonth.bind(this))
+    view.bindDaysEvent(this.bindDaysEvent.bind(this))
   }
 
   init () {
@@ -36,6 +37,11 @@ export default class Controller {
     const nextMonthDate = this.model.getPrevOrNextMonthDate(date, 'next')
     this.model.setDate(nextMonthDate)
     this.updateMonthLabel()
+    this.showMonthDays()
+  }
+
+  bindDaysEvent (key) {
+    this.model.toggleSelect(key)
     this.showMonthDays()
   }
 }
