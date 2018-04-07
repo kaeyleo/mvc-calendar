@@ -5,6 +5,8 @@ export default class View {
     this.$nextBtn = document.querySelector('.next-btn')
     this.$dateBody = document.querySelector('.date-body')
     console.log('this is View')
+
+    this.bindDaysEvent()
   }
 
   /**
@@ -48,6 +50,15 @@ export default class View {
   bindToNextMonth (handler) {
     this.$nextBtn.addEventListener('click', () => {
       handler()
+    })
+  }
+
+  bindDaysEvent () {
+    this.$dateBody.addEventListener('click', event => {
+      const target = event.target
+      if (target.className.indexOf('day') > -1) {
+        console.log(target.innerHTML)
+      }
     })
   }
 }
