@@ -63,17 +63,16 @@ export default class Model {
 
   // storage days selected, events...
   getDaysOptions () {
-    const list = {
-      '2018 2 5': {
-        isSelecte: true
-      },
-      '2018 4 10': {
-        isSelecte: true
-      },
-      '2018 4 27': {
-        isSelecte: true
-      }
-    }
+    const list = {}
+
+    const todaysYear = this.todaysDate.getFullYear()
+    const todaysMonth = this.todaysDate.getMonth() + 1
+    const today = this.todaysDate.getDate()
+    const todaysDate = `${todaysYear} ${todaysMonth} ${today}`
+
+    if (!list[todaysDate]) list[todaysDate] = {}
+    list[todaysDate].isSelecte = true
+
     return list
   }
 
@@ -88,7 +87,11 @@ export default class Model {
   getMonthDaysData () {
     const year = this.date.getFullYear()
     const month = this.date.getMonth() + 1
-    const today = this.date.getDate()
+    let monthDay = 0
+
+    const todaysYear = this.todaysDate.getFullYear()
+    const todaysMonth = this.todaysDate.getMonth() + 1
+    const today = this.todaysDate.getDate()
 
     const prevMonthDays = this.getPrevMonthDays()
     const days = new Date(year, month, 0).getDate() // 这个月天数
@@ -99,7 +102,7 @@ export default class Model {
     weeksLen = Math.round(weeksLen)
 
     const data = []
-    let monthDay = 0
+
     for (let i = 0; i < weeksLen; i++) {
       const weeks = []
       let nextMonthDay = 0
@@ -139,7 +142,8 @@ export default class Model {
         day.value = monthDay
         day.isCurrentMonth = true
 
-        if (monthDay === today) day.isToday = true
+        const todaysDate = `${todaysYear} ${todaysMonth} ${today}`
+        if (day.date === todaysDate) day.isToday = true
 
         const daysOptions = this.getDaysOptions()
         for (let dayOpt in daysOptions) {
