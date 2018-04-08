@@ -3,9 +3,8 @@ export default class Model {
     this.date = new Date()
     this.todaysDate = new Date()
     this.daysOptions = {}
+    this.selectedDate = this.getTodaysDateStr()
     console.log('this is Model')
-
-    this.initToday()
   }
 
   getDate () {
@@ -18,6 +17,15 @@ export default class Model {
    */
   setDate (date) {
     this.date = date
+  }
+
+  getTodaysDateStr () {
+    const todaysYear = this.todaysDate.getFullYear()
+    const todaysMonth = this.todaysDate.getMonth() + 1
+    const today = this.todaysDate.getDate()
+    const todaysDate = `${todaysYear} ${todaysMonth} ${today}`
+
+    return todaysDate
   }
 
   getMonthLabel (isAbbreviated = false) {
@@ -33,6 +41,14 @@ export default class Model {
     const monthLabel = `${monthStr} ${year}`
 
     return monthLabel
+  }
+
+  getSelectedDate () {
+    return this.selectedDate
+  }
+
+  updateSelectedDate (date) {
+    this.selectedDate = date
   }
 
   /**
@@ -62,34 +78,6 @@ export default class Model {
     const month = this.date.getMonth()
     const d = new Date(year, month, 0)
     return d.getDate()
-  }
-
-  toggleSelect (key) {
-    const list = this.daysOptions
-    for (let i in list) {
-      list[i].isSelecte = false
-    }
-
-    const isDefined = !!list[key]
-    if (!isDefined) {
-      list[key] = {}
-      list[key].isSelecte = true
-      return
-    }
-    const isSelect = list[key].isSelecte
-    list[key].isSelecte = !isSelect
-  }
-
-  initToday () {
-    const list = this.daysOptions
-
-    const todaysYear = this.todaysDate.getFullYear()
-    const todaysMonth = this.todaysDate.getMonth() + 1
-    const today = this.todaysDate.getDate()
-    const todaysDate = `${todaysYear} ${todaysMonth} ${today}`
-
-    if (!list[todaysDate]) list[todaysDate] = {}
-    list[todaysDate].isSelecte = true
   }
 
   /**

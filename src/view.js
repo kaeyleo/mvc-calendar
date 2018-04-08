@@ -16,7 +16,7 @@ export default class View {
     this.$monthLabel.innerText = value
   }
 
-  showMonthDays (data) {
+  showMonthDays (data, selectedDate) {
     let htmlStr = ''
 
     for (let i = 0, len = data.length; i < len; i++) {
@@ -28,7 +28,7 @@ export default class View {
 
         if (!day.isCurrentMonth) classArr.push('day-disabled')
         if (day.isToday) classArr.push('day-today')
-        if (day.isSelecte) classArr.push('day-selected')
+        if (selectedDate === day.date && day.isCurrentMonth) classArr.push('day-selected')
 
         const extendClass = classArr.join(' ')
 
@@ -37,6 +37,12 @@ export default class View {
       htmlStr += '</tr>'
     }
     this.$dateBody.innerHTML = htmlStr
+  }
+
+  updateSelectedDate (oldDate) {
+    const el = document.querySelector(`[data-date="${oldDate}"]`)
+    if (!el) return
+    el.classList.remove('day-selected')
   }
 
   bindToPrevMonth (handler) {
@@ -54,8 +60,12 @@ export default class View {
   bindDaysEvent (handler) {
     this.$dateBody.addEventListener('click', event => {
       const target = event.target
-      if (target.className.indexOf('day') > -1) {
+      const isDayEl = target.className.indexOf('day') > -1
+      const disabledEl = target.className.indexOf('day-disabled') > -1
+
+      if (isDayEl && !disabledEl) {
         const date = target.dataset.date
+        target.classList.add('day-selected')
         handler(date)
       }
     })

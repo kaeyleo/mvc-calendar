@@ -21,7 +21,8 @@ export default class Controller {
 
   showMonthDays () {
     const data = this.model.getMonthDaysData()
-    this.view.showMonthDays(data)
+    const selectedDate = this.model.getSelectedDate()
+    this.view.showMonthDays(data, selectedDate)
   }
 
   toPrevMonth () {
@@ -40,8 +41,9 @@ export default class Controller {
     this.showMonthDays()
   }
 
-  bindDaysEvent (key) {
-    this.model.toggleSelect(key)
-    this.showMonthDays()
+  bindDaysEvent (newDate) {
+    const oldDate = this.model.getSelectedDate()
+    this.view.updateSelectedDate(oldDate)
+    this.model.updateSelectedDate(newDate)
   }
 }
