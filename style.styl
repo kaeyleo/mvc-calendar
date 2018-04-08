@@ -1,18 +1,37 @@
+$eventsWidth = 260px
+$shadeOffset = 26px
+$primaryColor = #222
+
 body
   margin 0 auto
   font-family Georgia, Helvetica
   background-color #eee
   text-align center
 
+.clearfix
+  &:after
+    content ''
+    display table
+    clear both
+
 .calendar
+  position relative
   margin-top 8em
-  padding 16px
   display inline-block
-  background-color #fff
   border-radius 4px
   box-shadow 0 1px 3px rgba(0,0,0,0.1)
   font-size 16px
   color #333
+  overflow hidden
+
+.calendar-main, .calendar-events
+  padding 24px
+  float left
+  box-sizing border-box
+
+.calendar-main
+  margin-right $eventsWidth
+  background-color #fff
 
 .date-btn
   border 0
@@ -26,8 +45,8 @@ body
   float right
 
 .day
-  width 28px
-  height 26px
+  width 36px
+  height 32px
   text-align center
 .day-today
   background-color #F3F4F5
@@ -49,3 +68,73 @@ body
     cursor pointer
   .day-disabled
     cursor auto
+
+.calendar-events
+  position absolute
+  top 0
+  right 0
+  width $eventsWidth
+  height 100%
+  color #fff
+  font-family "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif
+  font-weight 200
+  background-color $primaryColor
+
+.events-header
+  margin-bottom 8px
+  // font-weight 400
+  letter-spacing 1px
+.events-day-label
+  text-align left
+  font-size 24px
+  opacity .6
+
+.events-date-label
+  float left
+  font-size 18px
+.events-day-togo
+  margin-left 12px
+  float left
+
+.task-list
+  margin-top - $shadeOffset
+  height 200px
+  overflow-y scroll
+.task-item
+  position relative
+  margin-bottom 16px
+  &:first-of-type
+    margin-top $shadeOffset
+  &:last-of-type
+    margin-bottom $shadeOffset
+  .checker, .task-content
+    float left
+  .checker
+    position absolute
+    top 2px
+    left 0
+    .checkbox
+      width 12px
+      height 12px
+      border 1px solid #eee
+      border-radius 50%
+      cursor pointer
+  .task-content
+    padding-left 24px
+    text-align left
+    .task-name
+      font-size 15px
+      line-height 1.2
+    .task-date
+      font-size 13px
+      opacity .6
+
+[class^="list-shade"]
+  position relative
+  height $shadeOffset
+  z-index 2
+.list-shade--top
+  background linear-gradient(to bottom, $primaryColor, rgba(255, 255, 255, 0))
+.list-shade--bottom
+  margin-top - $shadeOffset
+  background linear-gradient(to top, $primaryColor, rgba(255, 255, 255, 0))
