@@ -9,37 +9,71 @@
 <body>
   <div class="calendar">
     <div class="calendar-main">
-      <div class="date-header">
-        <button class="date-btn prev-btn" type="button">prev</button>
-        <span class="month-label">April 2018</span>
-        <button class="date-btn next-btn" type="button">next</button>
+      <div class="date-header-wrap">
+        <div class="date-header">
+          <button class="date-btn prev-btn" type="button">prev</button>
+          <span class="month-label">April 2018</span>
+          <button class="date-btn next-btn" type="button">next</button>
+        </div>
+        <table class="date-table date-table-head">
+          <thead class="date-head">
+            <tr class="days-row">
+              <th class="day">Su</th>
+              <th class="day">Mo</th>
+              <th class="day">Tu</th>
+              <th class="day">We</th>
+              <th class="day">Th</th>
+              <th class="day">Fr</th>
+              <th class="day">Sa</th>
+            </tr>
+          </thead>
+        </table>
       </div>
-      <table class="date-table">
-        <thead class="date-head">
-          <tr class="days-row">
-            <th class="day">Su</th>
-            <th class="day">Mo</th>
-            <th class="day">Tu</th>
-            <th class="day">We</th>
-            <th class="day">Th</th>
-            <th class="day">Fr</th>
-            <th class="day">Sa</th>
-          </tr>
-        </thead>
+      <table class="date-table date-body-group">
         <tbody class="date-body">
           <tr class="days-row">
             <td class="day">01</td>
             <td class="day">02</td>
             <td class="day">03</td>
             <td class="day">04</td>
-            <td class="day day-today">05</td>
+            <td class="day">05</td>
             <td class="day">06</td>
             <td class="day">07</td>
           </tr>
           <tr class="days-row">
             <td class="day">01</td>
             <td class="day">02</td>
-            <td class="day day-selected">03</td>
+            <td class="day">03</td>
+            <td class="day">04</td>
+            <td class="day">05</td>
+            <td class="day">06</td>
+            <td class="day">07</td>
+          </tr>
+          <tr class="days-row">
+            <td class="day">01</td>
+            <td class="day">02</td>
+            <td class="day">03</td>
+            <td class="day">04</td>
+            <td class="day day-disabled">05</td>
+            <td class="day day-disabled">06</td>
+            <td class="day day-disabled">07</td>
+          </tr>
+        </tbody>
+        <tbody class="date-body"></tbody>
+        <tbody class="date-body">
+          <tr class="days-row">
+            <td class="day">01</td>
+            <td class="day">02</td>
+            <td class="day">03</td>
+            <td class="day">04</td>
+            <td class="day">05</td>
+            <td class="day">06</td>
+            <td class="day">07</td>
+          </tr>
+          <tr class="days-row">
+            <td class="day">01</td>
+            <td class="day">02</td>
+            <td class="day">03</td>
             <td class="day">04</td>
             <td class="day">05</td>
             <td class="day">06</td>
@@ -56,6 +90,7 @@
           </tr>
         </tbody>
       </table>
+      <div class="date-table-placeholder"></div>
     </div>
     <div class="calendar-events">
       <div class="events-header clearfix">

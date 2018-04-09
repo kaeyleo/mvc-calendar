@@ -66,18 +66,43 @@ export default class Model {
     return d
   }
 
-  getFirstDay () {
-    const year = this.date.getFullYear()
-    const month = this.date.getMonth()
+  getFirstDay (date) {
+    const year = date.getFullYear()
+    const month = date.getMonth()
     const firstDay = new Date(year, month, 1).getDay()
     return firstDay
   }
 
-  getPrevMonthDays () {
-    const year = this.date.getFullYear()
-    const month = this.date.getMonth()
+  getPrevMonthDays (date) {
+    const year = date.getFullYear()
+    const month = date.getMonth()
     const d = new Date(year, month, 0)
     return d.getDate()
+  }
+
+  /**
+   * get prev/next/current month data
+   */
+  getRecentMonths () {
+    // current
+    const currentDate = this.date
+    const month = currentDate.getMonth()
+    // prev
+    const prevDate = new Date(currentDate)
+    prevDate.setMonth(month - 1)
+    // next
+    const nextDate = new Date(currentDate)
+    nextDate.setMonth(month + 1)
+
+    const currentMonthData = this.getMonthDaysData(currentDate)
+    const prevMonthData = this.getMonthDaysData(prevDate)
+    const nextMonthData = this.getMonthDaysData(nextDate)
+
+    return {
+      currentMonth: currentMonthData,
+      prevMonth: prevMonthData,
+      nextMonth: nextMonthData
+    }
   }
 
   /**
@@ -88,18 +113,20 @@ export default class Model {
    *   isCurrentMonth: true
    * }
    */
-  getMonthDaysData () {
-    const year = this.date.getFullYear()
-    const month = this.date.getMonth() + 1
+  getMonthDaysData (date) {
+    if (date === undefined) return
+
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
     let monthDay = 0
 
     const todaysYear = this.todaysDate.getFullYear()
     const todaysMonth = this.todaysDate.getMonth() + 1
     const today = this.todaysDate.getDate()
 
-    const prevMonthDays = this.getPrevMonthDays()
+    const prevMonthDays = this.getPrevMonthDays(date)
     const days = new Date(year, month, 0).getDate() // 这个月天数
-    const firstDay = this.getFirstDay()
+    const firstDay = this.getFirstDay(date)
     const lastDay = new Date(`${year}, ${month}, ${days}`).getDay() // 这个月最后一天星期几
     const weekDays = 7
     let weeksLen = (firstDay + days + 6 - lastDay) / weekDays
@@ -160,7 +187,7 @@ export default class Model {
       }
       data.push(weeks)
     }
-    console.log(data)
+    // console.log(data)
     return data
   }
 }

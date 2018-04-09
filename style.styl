@@ -16,7 +16,7 @@ body
 
 .calendar
   position relative
-  margin-top 8em
+  margin 8em 0
   display inline-block
   border-radius 4px
   box-shadow 0 1px 3px rgba(0,0,0,0.1)
@@ -30,8 +30,17 @@ body
   box-sizing border-box
 
 .calendar-main
+  padding-top 0
+  padding-bottom 0
   margin-right $eventsWidth
   background-color #fff
+
+.date-header-wrap
+  position relative
+  z-index 2
+  background linear-gradient(to bottom, #fff 80%, rgba(255, 255, 255, 0))
+.date-header
+  padding-top 24px
 
 .date-btn
   border 0
@@ -60,10 +69,14 @@ body
   color #c0c4cc
 
 .date-table
-  margin-top 8px
+  width 100%
 .date-head
   font-size 14px
 .date-body
+  padding-top 8px
+  display block
+  &:first-of-type
+    padding-top 0
   .day
     cursor pointer
   .day-disabled
@@ -138,3 +151,12 @@ body
 .list-shade--bottom
   margin-top - $shadeOffset
   background linear-gradient(to top, $primaryColor, rgba(255, 255, 255, 0))
+
+.date-body-group
+  position absolute
+  // transform translateY(100px)
+  transition transform .5s
+
+.date-table-placeholder
+  height 600px
+  transition height .3s

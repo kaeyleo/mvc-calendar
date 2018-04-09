@@ -20,9 +20,11 @@ export default class Controller {
   }
 
   showMonthDays () {
-    const data = this.model.getMonthDaysData()
+    const data = this.model.getRecentMonths()
     const selectedDate = this.model.getSelectedDate()
-    this.view.showMonthDays(data, selectedDate)
+    console.log(data)
+    // this.view.showMonthDays(data, selectedDate)
+    this.view.renderMonth(data, selectedDate)
   }
 
   toPrevMonth () {

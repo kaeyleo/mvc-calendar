@@ -3,7 +3,9 @@ export default class View {
     this.$monthLabel = document.querySelector('.month-label')
     this.$prevBtn = document.querySelector('.prev-btn')
     this.$nextBtn = document.querySelector('.next-btn')
-    this.$dateBody = document.querySelector('.date-body')
+    this.$beforeDateBody = document.querySelectorAll('.date-body')[0]
+    this.$currentDateBody = document.querySelectorAll('.date-body')[1]
+    this.$nextDateBody = document.querySelectorAll('.date-body')[2]
     console.log('this is View')
   }
 
@@ -16,7 +18,17 @@ export default class View {
     this.$monthLabel.innerText = value
   }
 
-  showMonthDays (data, selectedDate) {
+  renderMonth (data, selectedDate) {
+    const {currentMonth, prevMonth, nextMonth} = data
+
+    this.$currentDateBody.innerHTML = this.getMonthTemplate(currentMonth, selectedDate)
+    this.$beforeDateBody.innerHTML = this.getMonthTemplate(prevMonth, selectedDate)
+    this.$nextDateBody.innerHTML = this.getMonthTemplate(nextMonth, selectedDate)
+  }
+
+  getMonthTemplate (data, selectedDate) {
+    if (data === undefined || data === []) return
+
     let htmlStr = ''
 
     for (let i = 0, len = data.length; i < len; i++) {
@@ -36,7 +48,23 @@ export default class View {
       }
       htmlStr += '</tr>'
     }
-    this.$dateBody.innerHTML = htmlStr
+
+    return htmlStr
+    // let h = this.$beforeDateBody.offsetHeight // 上个月高度
+    // console.log(h)
+    // h += 12
+
+    // 当前高度
+    // let ch = this.$currentDateBody.offsetHeight
+    // console.log(ch)
+    // ch += 8
+    // const placeholder = document.querySelector('.date-table-placeholder')
+    // placeholder.style = `height: ${ch}px;`
+
+    // const bb = document.querySelector('.date-body-group')
+    // setTimeout(() => {
+    //   bb.style = `transform: translateY(-${h}px);`
+    // }, 600)
   }
 
   updateSelectedDate (oldDate) {
@@ -58,7 +86,7 @@ export default class View {
   }
 
   bindDaysEvent (handler) {
-    this.$dateBody.addEventListener('click', event => {
+    this.$currentDateBody.addEventListener('click', event => {
       const target = event.target
       const isDayEl = target.className.indexOf('day') > -1
       const disabledEl = target.className.indexOf('day-disabled') > -1
