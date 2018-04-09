@@ -24,6 +24,17 @@ export default class View {
     this.$currentDateBody.innerHTML = this.getMonthTemplate(currentMonth, selectedDate)
     this.$beforeDateBody.innerHTML = this.getMonthTemplate(prevMonth, selectedDate)
     this.$nextDateBody.innerHTML = this.getMonthTemplate(nextMonth, selectedDate)
+
+    const $dateBodyGroup = document.querySelector('.date-body-group')
+    const $dateTablePlaceholder = document.querySelector('.date-table-placeholder')
+
+    let currentMonthHeight = this.$currentDateBody.offsetHeight // 当前月份日历高度
+    currentMonthHeight += 8
+    let prevMonthHeight = this.$beforeDateBody.offsetHeight // 获取上个月日历高度
+    prevMonthHeight += 12
+
+    $dateTablePlaceholder.style = `height: ${currentMonthHeight}px;` // 初始化容器高度
+    $dateBodyGroup.style = `transform: translateY(-${prevMonthHeight}px);` // 移动焦点到当前月份
   }
 
   getMonthTemplate (data, selectedDate) {
@@ -50,21 +61,6 @@ export default class View {
     }
 
     return htmlStr
-    // let h = this.$beforeDateBody.offsetHeight // 上个月高度
-    // console.log(h)
-    // h += 12
-
-    // 当前高度
-    // let ch = this.$currentDateBody.offsetHeight
-    // console.log(ch)
-    // ch += 8
-    // const placeholder = document.querySelector('.date-table-placeholder')
-    // placeholder.style = `height: ${ch}px;`
-
-    // const bb = document.querySelector('.date-body-group')
-    // setTimeout(() => {
-    //   bb.style = `transform: translateY(-${h}px);`
-    // }, 600)
   }
 
   updateSelectedDate (oldDate) {
